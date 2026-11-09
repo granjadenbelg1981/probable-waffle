@@ -1,0 +1,58 @@
+@use '../colors';
+@use '../typography';
+
+@use '@angular/material' as mat;
+
+.app-table {
+  border-spacing: 0px;
+
+  .light & {
+    @include mat.elevation(8);
+  }
+  .dark & {
+    border-radius: 4px;
+    border: 1px solid colors.border-color(dark);
+  }
+  tbody tr td {
+    .light & {
+      border-top: 1px solid colors.border-color(light);
+    }
+    .dark & {
+      border-top: 1px solid colors.border-color(dark);
+    }
+  }
+  th {
+    @extend .text-label;
+  }
+  td {
+    font-size: 16px;
+  }
+  th,
+  td {
+    padding: 12px 12px;
+  }
+}
+
+.property-table {
+  width: 100%;
+  padding: 8px;
+  .light & {
+    background-color: colors.color(light);
+  }
+  .dark & {
+    background-color: colors.color(dark);
+  }
+  tr.mat-mdc-header-row {
+    height: 25px;
+  }
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding: 0 10px;
+    .light & {
+      border-color: colors.border-color(light);
+    }
+    .dark & {
+      border-color: colors.border-color(dark);
+    }
+  }
+}
