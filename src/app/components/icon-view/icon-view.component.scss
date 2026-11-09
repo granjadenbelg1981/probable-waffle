@@ -1,0 +1,18 @@
+@use '../../../style/globals.scss';
+@use '../../../style/colors';
+
+.icon-view {
+  display: inherit;
+}
+.mat-icon {
+  vertical-align: middle;
+}
+.warn {
+  color: colors.color(warn);
+}
+.error {
+  color: colors.color(error);
+}
+.success {
+  color: colors.color(success);
+}
