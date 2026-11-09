@@ -1,0 +1,205 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:string';
+
+/**
+ * Colors used across the website.
+ * For each color-pair:
+ *   - "color" refers to the color itself
+ *   - "on-color" refers to the most readable text-color to appear on top of the color. 
+ * Note: some colors don't define on-colors. This is because, for these colors, they aren't intended to
+ * appear with inner content. For example, "link" is only intended to be used for link text, which inherently
+ * cannot have inner text.
+ */
+
+$mitre-navy: #0d2f4f;
+$mitre-blue: #005b94;
+$mitre-black: #111921;
+$spark-yellow: #fff601;
+$mitre-light-blue: #87deff;
+$mitre-silver: #f1f3f4;
+$mitre-gray: #d4d4d3;
+$mitre-dark-gray: #7e8284;
+
+$colors: (
+  primary: (
+    color: $mitre-navy,
+    on-color: $mitre-silver,
+  ),
+  primary-dark: (
+    color: $mitre-blue,
+    on-color: $mitre-silver,
+  ),
+  secondary: (
+    color: $mitre-blue,
+    on-color: $mitre-black,
+  ),
+  light: (
+    color: $mitre-silver,
+    on-color: $mitre-black,
+  ),
+  dark: (
+    color: $mitre-black,
+    on-color: $mitre-silver,
+  ),
+  link: (
+    color: $mitre-blue,
+    on-color: $mitre-black,
+  ),
+  mitre-navy: (
+    color: $mitre-navy,
+    on-color: $mitre-silver,
+  ),
+  mitre-blue: (
+    color: $mitre-blue,
+    on-color: black,
+  ),
+  mitre-black: (
+    color: $mitre-black,
+    on-color: $mitre-silver,
+  ),
+  spark-yellow: (
+    color: $spark-yellow,
+    on-color: black,
+  ),
+  mitre-silver: (
+    color: $mitre-silver,
+    on-color: $mitre-black,
+  ),
+  mitre-dark-gray: (
+    color: $mitre-dark-gray,
+    on-color: $mitre-black,
+  ),
+  mitre-light-blue: (
+    color: $mitre-light-blue,
+    on-color: $mitre-black,
+  ),
+  // snackbar colors
+  success: (
+      color: #599e2f,
+      on-color: black,
+    ),
+  warn: (
+    color: #eb6635,
+    on-color: black,
+  ),
+  error: (
+    color: #e32a4c,
+    on-color: black,
+  ),
+  info: (
+    color: $mitre-blue,
+    on-color: black,
+  ),
+  // role colors
+  active: (
+      color: #66bb6a,
+      on-color: black,
+    ),
+  pending: (
+    color: #f5d466,
+    on-color: black,
+  ),
+  // notification colors
+  alert: (
+      color: #ff9f32,
+      on-color: black,
+    ),
+);
+
+// accessor helper for $colors. Gets the color of the named pair
+@function color($name) {
+  @return map.get(map.get($colors, $name), 'color');
+}
+
+// given a color name, get an alternate version of the color, for patterning
+// if the base color is dark, the alternate will be slightly lighter.
+// if the base color is light, the alternate will be slightly darker.
+// contrast, an optional argument, multiplies to create a more distint or similar color. >1 is more distant, <1 is more similar.
+@function color-alternate($name, $contrast: 1) {
+  @return color.mix(
+    color.invert(color($name)),
+    color($name),
+    $weight: $contrast * 5%
+  );
+}
+
+// accessor helper for $colors. Gets the on-color of the named pair
+@function on-color($name) {
+  @return map.get(map.get($colors, $name), 'on-color');
+}
+
+// given a color-name, get an emphasized version of the on-color.
+// The emphasized on-color is less like the background color.
+@function on-color-emphasis($name) {
+  @return color.mix(color.invert(color($name)), on-color($name));
+}
+// given a color-name, get an deemphasized version of the on-color.
+// The deemphasized on-color is more like the background color.
+@function on-color-deemphasis($name) {
+  @return color.mix(color($name), on-color($name), 60%);
+}
+
+// given a color name, compute a border color for the color
+@function border-color($name) {
+  @return color.mix(color($name), on-color($name), 80%);
+  // @return rgba(invert(color($name)), 0.125);
+}
+
+// escape the color. Note param is a color and not a color name: this is not an accessor to the color map above.
+// replaces # with %23 in hex colors
+// see https://codepen.io/gunnarbittersmann/pen/BoovjR for explanation of why we have to escape # for the background image
+@function escape-color($color) {
+  $hex: color.ie-hex-str($color);
+  @return '%23' + string.slice($string: #{$hex}, $start-at: 4); //skip #AA in #AARRGGBB
+}
+
+// convert the color to a material-supporting color map
+@function to-material-map($color) {
+  @return (
+    50: color($color),
+    100: color($color),
+    200: color($color),
+    300: color($color),
+    400: color($color),
+    500: color($color),
+    600: color($color),
+    700: color($color),
+    800: color($color),
+    900: color($color),
+    contrast: (
+      50: on-color($color),
+      100: on-color($color),
+      200: on-color($color),
+      300: on-color($color),
+      400: on-color($color),
+      500: on-color($color),
+      600: on-color($color),
+      700: on-color($color),
+      800: on-color($color),
+      900: on-color($color),
+    )
+  );
+}
+
+.text-deemphasis {
+  .dark & {
+    color: on-color-deemphasis(dark);
+  }
+  .light & {
+    color: on-color-deemphasis(light);
+  }
+}
+
+.text-success {
+  color: color(success);
+}
+.text-warn {
+  color: color(warn);
+}
+.text-error {
+  color: color(error);
+}
+.text-info {
+  color: color(info);
+}

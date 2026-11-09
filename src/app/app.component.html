@@ -1,0 +1,45 @@
+<div [class]="'app-root ' + theme">
+  <mat-drawer-container class="app-body">
+    <mat-drawer
+      class="app-nav-drawer"
+      mode="side"
+      position="start"
+      [opened]="true">
+      <app-navigation></app-navigation>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <div class="app-content">
+        <app-header
+          (onLogin)="login()"
+          (onLogout)="logout()"
+          (onRegister)="register()"></app-header>
+        <app-toolbar
+          (onToggleTheme)="toggleTheme()"
+          (onScrollTop)="scrollToTop()"></app-toolbar>
+        <div
+          *ngIf="alertStatus"
+          class="banner"
+          [ngClass]="alertStatus === 'pending' ? 'success' : 'warning'">
+          <span class="banner-text"
+            ><span *ngIf="alertStatus === 'pending'"
+              >Registration successful! </span
+            >Your account is {{ alertStatus }}, please contact your
+            Administrator</span
+          >
+          <button mat-icon-button (click)="alertStatus = ''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div class="router-padding main-body" #scrollRef>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-drawer-content>
+    <mat-drawer mode="side" position="end" #sidebar [opened]="sidebarOpened">
+      <div class="app-drawer">
+        <app-resources-drawer></app-resources-drawer>
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
