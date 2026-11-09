@@ -1,0 +1,18 @@
+@use '../../../style/globals';
+.app-subheading {
+  display: flex;
+  align-items: center;
+  .mdc-button {
+    height: auto;
+  }
+
+  .section-header-section.source {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.stixid-property {
+  margin-top: 8px;
+  margin-bottom: -8px;
+}
