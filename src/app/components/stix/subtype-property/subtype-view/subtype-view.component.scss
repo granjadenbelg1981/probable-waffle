@@ -1,0 +1,20 @@
+@use '../../../../../style/globals';
+
+.subtype-view {
+  @extend .labelled-box;
+
+  .content {
+    overflow-x: auto;
+  }
+
+  .subtype-markdown {
+    p {
+      padding: 0;
+      margin: 0;
+    }
+    sup {
+      vertical-align: top;
+      position: relative;
+    }
+  }
+}

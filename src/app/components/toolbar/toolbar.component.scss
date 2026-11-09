@@ -1,0 +1,9 @@
+@use '../../../style/globals';
+.object-toolbar {
+  mat-toolbar {
+    @extend %toolbar;
+  }
+  .inline {
+    display: inline-flex;
+  }
+}
