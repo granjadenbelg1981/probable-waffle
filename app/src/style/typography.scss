@@ -1,0 +1,93 @@
+@import '~@angular/material/theming';
+@import "colors";
+@import "fonts";
+
+.superheading { //super big display text
+    font-size: 60px;
+    letter-spacing: 2pt;
+    text-transform: uppercase;
+    text-align: center;
+}
+.heading {
+    font-family: Poppins,Arial,sans-serif;
+    letter-spacing: 0.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.subheading {
+    font-family: Poppins,Arial,sans-serif;
+    letter-spacing: 0.5pt;
+    font-weight: 700;
+}
+.subheading.alt {
+    font-family: Roboto,Georgia,serif;
+}
+.subsubheading {
+    font-family: Poppins,Arial,sans-serif;
+    letter-spacing: 0.5pt;
+    font-weight: normal;
+}
+.text-label {
+    font-family: Roboto Condensed,Arial,sans-serif;
+    // font-weight: bold;
+    font-size: 16px;
+    &:not(.lowercase) { text-transform: uppercase; }
+}
+.warning-text {
+    font-family: Poppins,Arial,sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: color(error);
+}
+
+%typography {
+    font-family: Roboto,serif;
+    // letter-spacing: 0.25pt;
+    font-size: 18px;
+    line-height: 1.5;
+
+    h1 { @extend .heading; }
+    h2, h3, h4 { @extend .subheading; }
+    h5, h6 { font-size: 18px; }
+
+    a:not(.external-link):not(.mat-button):not(.mat-stroked-button) {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-bottom: 2px solid color(balanced-blue);
+        &:hover {
+            color: color(balanced-blue);
+        }
+    }
+
+    a.external-link {
+        border-bottom: none;
+        color: color(link);
+        transition: none;
+        text-decoration: none;
+        &:hover {
+            border-bottom: 2px solid color(link);
+            color: color(balanced-blue);
+        }
+    }
+
+    // see https://github.com/angular/components/blob/master/src/material/core/typography/_typography.scss#L24
+    $custom-typography: mat-typography-config(
+        $font-family: Roboto,
+        $headline: mat-typography-level(32px, 48px, 800, $letter-spacing: 0.5pt),
+        $title:    mat-typography-level(20px, 32px, 800, $letter-spacing: 0.5pt),
+        $body-1:   mat-typography-level(16px, 24px, 400, $letter-spacing: 0.25pt)
+    );
+
+    @include mat-base-typography($custom-typography);
+    @include mat-checkbox-typography($custom-typography);
+    @include angular-material-typography($custom-typography);
+    @include mat-core($custom-typography);
+}
+
+//custom typography theme
+
+
+
+
+

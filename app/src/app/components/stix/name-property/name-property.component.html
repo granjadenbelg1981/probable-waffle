@@ -1,0 +1,18 @@
+<h1 class="name-property">
+    <ng-container *ngIf="config.mode == 'view'; else edit">
+        <span *ngIf="config.parent">
+            <a class="external-link" [href]="internalParentLink" target="_blank">{{config.parent.name}}</a>: </span> {{config.object[config.field ? config.field : "name"]}}
+        <app-icon-view [config]="{object: config.object, field: 'workflow'}"></app-icon-view>
+    </ng-container>
+    <ng-template #edit>
+        <mat-form-field class="name-edit" appearance="outline">
+            <mat-label>name</mat-label>
+            <span *ngIf="config.parent" matPrefix>{{config.parent.name}}: </span>
+            <input matInput required [(ngModel)]="config.object[config.field ? config.field : 'name']">
+        </mat-form-field>
+    </ng-template>
+</h1>
+<h3 class="status">
+    <span class="warning-text" *ngIf="config.object['deprecated']">deprecated</span>
+    <span class="warning-text" *ngIf="config.object['revoked'] && loaded">revoked by: {{target_obj.stix.name}}</span>
+</h3>

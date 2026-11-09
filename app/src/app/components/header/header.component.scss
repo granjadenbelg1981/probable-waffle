@@ -1,0 +1,51 @@
+@import "../../../style/globals";
+.header {
+    .light & { background: color(primary); color: on-color(primary); }
+    .dark & { background: color(light); }
+    .spacer {
+        flex: 1 1 auto;
+    }
+    .app-title {
+        a {
+            @extend .heading;
+            border-bottom-width: 0 !important;
+            .dark &, .dark &:hover { color: color(primary) !important; }
+            .light &, .light &:hover { color: color(light) !important; }
+        }
+        .app-version {
+            text-transform: none;
+            @extend .text-label;
+            font-size: 10px;
+        }
+    }
+    button {
+        .dark & { color: on-color(light); }
+        font-family: Roboto,Arial,sans-serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        &.mat-button-disabled {
+            cursor: not-allowed;
+            .dark & { color: on-color-deemphasis(dark); }
+            .light & { color: on-color-deemphasis(light); }
+        }
+    }
+    .links {
+        overflow: hidden;
+        &.pad-right { padding-right: 12px; }
+    }
+    .hamburger {
+        position: relative;
+        width: 0;
+        overflow-x: visible;
+        left: -40px;
+    }
+    .mat-icon-button.account {
+        vertical-align: middle;
+        .dark & { background: color-alternate(dark); }
+        .light & { background: color(light); }
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
+}

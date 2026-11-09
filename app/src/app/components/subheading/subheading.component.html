@@ -1,0 +1,44 @@
+<div class="section-header">
+    <div class="app-subheading">
+        <div *ngIf="config.object.hasOwnProperty('modified')" class="section-header-section" [class.clickable]="config.sidebarControl != 'disable'" (click)="openHistory()" [popover]="historyPeek" popoverPlacement="bottom">
+            Modified <app-timestamp-view [config]="{
+                mode: 'view',
+                object: config.object,
+                field: 'modified',
+                humanize: true
+            }"></app-timestamp-view>
+        </div>
+        <div class="section-header-section">
+            <app-tlp-property [config]="{
+                mode: config.mode,
+                object: config.object
+            }"></app-tlp-property>
+        </div>
+        <div class="section-header-section">
+            <app-statement-property [config]="{
+                mode: config.mode,
+                object: config.object
+            }"></app-statement-property>
+        </div>
+    </div>
+</div>
+
+<!-- history peek popover -->
+<popover-content #historyPeek>
+    <div class="historyPeek">
+        <app-timestamp-property [config]="{
+            mode: 'view',
+            object: config.object,
+            field: 'modified',
+            attribution: 'modified_by',
+            displayName: 'true'
+        }"></app-timestamp-property>
+        <app-timestamp-property [config]="{
+            mode: 'view',
+            object: config.object,
+            field: 'created',
+            attribution: 'created_by',
+            displayName: 'true'
+        }"></app-timestamp-property>
+    </div>
+</popover-content>

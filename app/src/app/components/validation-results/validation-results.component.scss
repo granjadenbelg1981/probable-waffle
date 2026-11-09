@@ -1,0 +1,24 @@
+@import "../../../style/globals";
+.mat-list.validation-results {
+    .validation-item .mat-list-item-content {
+        padding-left: 0;
+    }
+    .validation-item.success {
+        color: color(success);
+    }
+    .validation-item.warning {
+        color: color(warn);
+    }
+    .validation-item.error {
+        color: color(error);
+    }
+    .validation-item.info {
+        color: color(info);
+    }
+    .validation-item .mat-line {
+        //overwrite material's text overflow settings for mat-lines
+        white-space: normal;
+        overflow: auto;
+        text-overflow: unset;
+    }
+}
