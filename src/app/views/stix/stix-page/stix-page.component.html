@@ -1,0 +1,75 @@
+<div class="stix-page-wrapper">
+  <div *ngIf="objects; else loading">
+    <div class="nothing-here" *ngIf="objects.length === 0; else showObject">
+      <h1 class="text-deemphasis">
+        <span class="shrug">¯\_(ツ)_/¯</span> Nothing here
+      </h1>
+    </div>
+    <ng-template #showObject>
+      <app-relationship-view
+        *ngIf="objectType === 'relationship'"
+        [config]="buildConfig()"></app-relationship-view>
+      <app-campaign-view
+        *ngIf="objectType === 'campaign'"
+        (onReload)="loadObjects()"
+        [config]="buildConfig()"></app-campaign-view>
+      <app-group-view
+        *ngIf="objectType === 'group'"
+        (onReload)="loadObjects()"
+        [config]="buildConfig()"></app-group-view>
+      <app-software-view
+        *ngIf="objectType === 'software'"
+        (onReload)="loadObjects()"
+        [config]="buildConfig()"></app-software-view>
+      <app-matrix-view
+        *ngIf="objectType === 'matrix'"
+        [config]="buildConfig()"></app-matrix-view>
+      <app-mitigation-view
+        *ngIf="objectType === 'mitigation'"
+        (onReload)="loadObjects()"
+        [config]="buildConfig()"></app-mitigation-view>
+      <app-technique-view
+        *ngIf="objectType === 'technique'"
+        (onReload)="loadObjects()"
+        [config]="buildConfig()"></app-technique-view>
+      <app-tactic-view
+        *ngIf="objectType === 'tactic'"
+        [config]="buildConfig()"></app-tactic-view>
+      <app-data-component-view
+        *ngIf="objectType === 'data-component'"
+        [config]="buildConfig()"></app-data-component-view>
+      <app-data-source-view
+        *ngIf="objectType === 'data-source'"
+        [config]="buildConfig()"></app-data-source-view>
+      <app-detection-strategy-view
+        *ngIf="objectType === 'detection-strategy'"
+        [config]="buildConfig()"></app-detection-strategy-view>
+      <app-analytic-view
+        *ngIf="objectType === 'analytic'"
+        [config]="buildConfig()"></app-analytic-view>
+      <app-asset-view
+        *ngIf="objectType === 'asset'"
+        [config]="buildConfig()"></app-asset-view>
+      <app-marking-definition-view
+        *ngIf="objectType === 'marking-definition'"
+        [config]="buildConfig()"></app-marking-definition-view>
+      <!-- display import review if collection was imported -->
+      <app-collection-import-review
+        *ngIf="
+          objectType === 'collection' && objects[0].hasOwnProperty('imported')
+        "
+        [config]="buildConfig()"></app-collection-import-review>
+      <!-- otherwise show view/edit interface -->
+      <app-collection-view
+        #collectionViewRef
+        *ngIf="
+          objectType === 'collection' && !objects[0].hasOwnProperty('imported')
+        "
+        [config]="buildConfig()"></app-collection-view>
+    </ng-template>
+  </div>
+  <ng-template #loading>
+    <app-loading-overlay
+      [message]="'loading ' + objectType"></app-loading-overlay>
+  </ng-template>
+</div>
