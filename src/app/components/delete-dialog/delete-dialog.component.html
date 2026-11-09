@@ -1,0 +1,36 @@
+<div class="delete-dialog">
+  <h2>{{ title }}</h2>
+  <h4 *ngIf="warning">{{ warning }}</h4>
+  <h4 *ngIf="hardDelete">WARNING: This object will be permanently deleted.</h4>
+  <h4 *ngIf="collectionDelete">
+    WARNING: This will delete ALL objects associated with the collection. If an
+    object is referenced in another collection, it will not be deleted.
+  </h4>
+  <div class="confirm-form">
+    <p class="confirm-instruction">
+      Please enter
+      <button
+        type="button"
+        class="confirmation-token"
+        [cdkCopyToClipboard]="confirmationText"
+        [attr.aria-label]="'Copy ' + confirmationText">
+        <strong class="confirmation-text">{{ confirmationText }}</strong>
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      to confirm.
+    </p>
+    <mat-form-field appearance="outline">
+      <input matInput required [(ngModel)]="confirmInput" />
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-button matDialogClose>no, cancel</button>
+    <button
+      mat-stroked-button
+      class="warn"
+      [disabled]="invalid"
+      (click)="confirm()">
+      yes, delete
+    </button>
+  </div>
+</div>
