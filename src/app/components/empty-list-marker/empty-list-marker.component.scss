@@ -1,0 +1,19 @@
+@use '../../../style/globals';
+@use '../../../style/colors';
+@use '../../../style/typography';
+
+.empty-list-marker {
+  // width: 100%;
+  @extend .text-label;
+  .dark & {
+    color: colors.on-color-deemphasis(dark);
+  }
+  .light & {
+    color: colors.on-color-deemphasis(light);
+  }
+  text-align: center;
+  padding: 50px;
+  a {
+    cursor: pointer;
+  }
+}
